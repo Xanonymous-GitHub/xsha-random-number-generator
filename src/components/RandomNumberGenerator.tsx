@@ -14,6 +14,8 @@ export function RandomNumberGenerator() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [errors, setErrors] = useState<{ min?: string; max?: string }>({});
 
+  const currentYear = new Date().getFullYear();
+
   const validateRange = useCallback((minVal: number, maxVal: number) => {
     const newErrors: { min?: string; max?: string } = {};
 
@@ -213,7 +215,7 @@ export function RandomNumberGenerator() {
 
         {/* Footer */}
         <div className="text-center text-slate-500 dark:text-slate-500 text-sm">
-          Built with React, TypeScript & TailwindCSS
+          Copyright &copy; {currentYear} Xanonymous. All rights reserved.
         </div>
       </div>
     </div>
