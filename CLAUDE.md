@@ -7,26 +7,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 XSha Random Manager - A React-based random number generator application built with TypeScript, Vite, and modern tooling. Currently in early development with minimal implementation.
 
 **Tech Stack:**
-- React 19 with TypeScript
+- React 19 with TypeScript 5.9
 - Vite 7 for build tooling
+- TailwindCSS 4 for styling
 - Biome 2 + ESLint 9 for code quality
+- Radix UI components with shadcn/ui
+- Lucide React icons
 - Zod 4 for validation
 
 ## Essential Commands
 
 ### Development
-- `bun --bun run dev` - Start development server with hot reload
-- `bun --bun run build` - Build for production (TypeScript + Vite)
-- `bun --bun run preview` - Preview production build
+- `bun run dev` - Start development server with hot reload
+- `bun run build` - Build for production (TypeScript + Vite)
+- `bun run preview` - Preview production build
 
 ### Code Quality  
-- `bun --bun run lint` - Run Biome + ESLint checks (use before commits)
-- `bun --bun run lint:fix` - Auto-fix formatting and linting issues
-- `bun --bun run lint:fix` - **REQUIRED**: Run after EVERY task completion iteratively until all errors/warnings fixed
+- `bun run lint` - Run Biome + ESLint checks (use before commits)
+- `bun run lint:fix` - Auto-fix formatting and linting issues
+- `bun run lint:fix` - **REQUIRED**: Run after EVERY task completion iteratively until all errors/warnings fixed
 
 ### Package Management
 - `bun install` - Install dependencies
-- `bun --bun run prepare` - Setup git hooks
+- `bun run prepare` - Setup git hooks (Husky)
 
 ## Code Architecture & Conventions
 
@@ -46,10 +49,15 @@ XSha Random Manager - A React-based random number generator application built wi
 ### Project Structure
 ```
 src/
-├── App.tsx          # Main React component
-├── main.tsx         # App entry point
-├── assets/          # Static assets
-└── vite-env.d.ts    # Vite types
+├── App.tsx              # Main React component
+├── main.tsx             # App entry point
+├── index.css            # Global styles (TailwindCSS imports)
+├── lib/
+│   └── utils.ts         # Utility functions (clsx, cn helper)
+├── components/
+│   └── ui/
+│       └── button.tsx   # shadcn/ui Button component
+└── vite-env.d.ts        # Vite types
 ```
 
 ## MCP Tools & Modern Development Practices
@@ -99,15 +107,15 @@ src/
 
 ### Quality Gates (Required)
 1. **TypeScript compilation** must pass (`tsc -b`)
-2. **Linting** must pass (`bun --bun run lint`)
-3. **Production build** must work (`bun --bun run build`)
+2. **Linting** must pass (`bun run lint`)
+3. **Production build** must work (`bun run build`)
 
 ### **MANDATORY**: Post-Task Quality Protocol
 **After EVERY task completion:**
-1. **Run iteratively**: `bun --bun run lint:fix`
+1. **Run iteratively**: `bun run lint:fix`
 2. **Fix ALL errors and warnings** - no exceptions
 3. **Repeat until clean** - continue until zero issues
-4. **Verify build** - ensure `bun --bun run build` succeeds
+4. **Verify build** - ensure `bun run build` succeeds
 5. **Only then** proceed to next task
 
 ### Git Workflow
@@ -118,21 +126,26 @@ src/
 ### Task Completion Checklist
 **REQUIRED sequence for every task:**
 1. Complete implementation
-2. Run `bun --bun run lint:fix` iteratively until all errors/warnings resolved
-3. Test production build (`bun --bun run build`)
+2. Run `bun run lint:fix` iteratively until all errors/warnings resolved
+3. Test production build (`bun run build`)
 4. Use MCP tools (Context7, Sequential, etc.) for validation
 5. Confirm modern best practices followed
 6. Only then mark task as complete
 
 ## Current Implementation Status
 
-**Minimal Setup**: Basic Vite + React + TypeScript foundation with:
-- Single page application (no routing)
+**Enhanced Setup**: Modern React + TypeScript foundation with:
+- TailwindCSS 4 for utility-first styling with integrated Vite plugin
+- shadcn/ui component system with Radix UI primitives
+- Lucide React icons for consistent iconography
+- Path aliases configured (`@/*` → `./src/*`)
+- HTML minification in production builds
+- Single page application (no routing yet)
 - No state management beyond React built-ins  
 - No testing framework configured
 - No API layer or backend integration
 
-**Development Ready**: Fully configured development environment with modern tooling, git hooks, and quality enforcement ready for feature development.
+**Production Ready**: Fully configured development environment with modern UI framework, styling system, quality tools, git hooks, and deployment-ready build process.
 
 ## Auto-Memory Management
 
