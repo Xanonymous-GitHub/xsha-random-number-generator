@@ -39,7 +39,8 @@
     "tw-animate-css": "^1.3.7",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.41.0",
-    "vite": "^7.1.4"
+    "vite": "^7.1.4",
+    "vite-plugin-html": "^3.2.2"
   },
   "lint-staged": {
     "*": "biome ci && eslint ."
