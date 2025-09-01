@@ -15,18 +15,18 @@ XSha Random Manager - A React-based random number generator application built wi
 ## Essential Commands
 
 ### Development
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production (TypeScript + Vite)
-- `npm run preview` - Preview production build
+- `bun --bun run dev` - Start development server with hot reload
+- `bun --bun run build` - Build for production (TypeScript + Vite)
+- `bun --bun run preview` - Preview production build
 
 ### Code Quality  
-- `npm run lint` - Run Biome + ESLint checks (use before commits)
-- `npm run lint:fix` - Auto-fix formatting and linting issues
+- `bun --bun run lint` - Run Biome + ESLint checks (use before commits)
+- `bun --bun run lint:fix` - Auto-fix formatting and linting issues
 - `bun --bun run lint:fix` - **REQUIRED**: Run after EVERY task completion iteratively until all errors/warnings fixed
 
 ### Package Management
-- `npm install` - Install dependencies
-- `npm run prepare` - Setup git hooks
+- `bun install` - Install dependencies
+- `bun --bun run prepare` - Setup git hooks
 
 ## Code Architecture & Conventions
 
@@ -142,7 +142,7 @@ src/
 1. **Auto-Update Memories**: Use `write_memory()` to update relevant memory files:
    - `project_overview.md` - Project purpose, tech stack changes
    - `code_style_conventions.md` - Linting, formatting, TypeScript config changes
-   - `suggested_commands.md` - New npm scripts, build processes
+   - `suggested_commands.md` - New bun scripts, build processes
    - `task_completion_checklist.md` - Quality gates, workflow changes
    - `project_structure.md` - Directory structure, architecture changes
 
