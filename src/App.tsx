@@ -1,11 +1,7 @@
-import { Button } from "@/components/ui/button.tsx";
+import { RandomNumberGenerator } from "@/components/RandomNumberGenerator";
 
 function App() {
-  return (
-    <div className="flex min-h-svh flex-col items-center justify-center">
-      <Button>Click me</Button>
-    </div>
-  );
+  return <RandomNumberGenerator />;
 }
 
 export default App;
