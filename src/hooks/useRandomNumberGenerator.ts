@@ -126,7 +126,8 @@ export const useRandomNumberGenerator = (
 
   const generateRandomNumber = useCallback(async () => {
     const currentErrors = validateRange(range.min, range.max);
-    if (Object.keys(currentErrors).length > 0) return;
+    if (currentErrors.min !== undefined || currentErrors.max !== undefined)
+      return;
 
     setIsGenerating(true);
     setRandomNumber(null);
