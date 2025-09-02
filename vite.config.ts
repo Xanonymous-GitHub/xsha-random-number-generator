@@ -39,12 +39,4 @@ export default defineConfig({
     target: "esnext",
     drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
   },
-  server: {
-    open: true,
-    host: true,
-  },
-  preview: {
-    open: true,
-    host: true,
-  },
 });

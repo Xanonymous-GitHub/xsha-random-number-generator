@@ -104,7 +104,10 @@ export const useRandomNumberGenerator = (
     [range.min, range.max],
   );
 
-  const hasErrors = useMemo(() => Object.keys(errors).length > 0, [errors]);
+  const hasErrors = useMemo(
+    () => errors.min !== undefined || errors.max !== undefined,
+    [errors],
+  );
 
   const canGenerate = useMemo(
     () => !isGenerating && !hasErrors && range.min < range.max,
