@@ -42,7 +42,7 @@ export function RandomNumberGenerator() {
 
   const handleMinChange = useCallback(
     (value: string) => {
-      const numValue = parseInt(value, 10) || 0;
+      const numValue = Number.parseInt(value, 10) || 0;
       setMin(numValue);
       validateRange(numValue, max);
     },
@@ -51,7 +51,7 @@ export function RandomNumberGenerator() {
 
   const handleMaxChange = useCallback(
     (value: string) => {
-      const numValue = parseInt(value, 10) || 0;
+      const numValue = Number.parseInt(value, 10) || 0;
       setMax(numValue);
       validateRange(min, numValue);
     },
@@ -67,7 +67,15 @@ export function RandomNumberGenerator() {
     // Animation delay to create suspense
     await new Promise((resolve) => setTimeout(resolve, 1200));
 
-    const result = Math.floor(Math.random() * (max - min + 1)) + min;
+    // Use cryptographically secure random generation
+    const range = max - min + 1;
+    const randomBuffer = new Uint32Array(1);
+    crypto.getRandomValues(randomBuffer);
+
+    // Convert to float in range [0, 1) and scale to desired range
+    const randomFloat = randomBuffer[0] / (0xffffffff + 1);
+    const result = Math.floor(randomFloat * range) + min;
+
     setRandomNumber(result);
     setIsGenerating(false);
   }, [min, max, validateRange]);
@@ -151,7 +159,7 @@ export function RandomNumberGenerator() {
               onClick={generateRandomNumber}
               disabled={!canGenerate}
               size="lg"
-              className="px-12 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="px-12 py-4 text-lg font-semibold bg-gradient-to-r dark:text-white cursor-pointer from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
             >
               <Shuffle
                 className={`w-5 h-5 mr-2 ${isGenerating ? "animate-spin" : ""}`}
