@@ -6,8 +6,8 @@ export type RandomNumberRange = {
 };
 
 export type ValidationErrors = {
-  readonly min?: string;
-  readonly max?: string;
+  readonly min: string | undefined;
+  readonly max: string | undefined;
 };
 
 export type RandomNumberState = {
@@ -31,7 +31,10 @@ const RANGE_LIMITS = {
 } as const;
 
 const validateRange = (min: number, max: number): ValidationErrors => {
-  const errors: ValidationErrors = {};
+  const errors: ValidationErrors = {
+    min: undefined,
+    max: undefined,
+  };
 
   if (min >= max) {
     return {
@@ -77,7 +80,11 @@ const generateSecureRandom = (min: number, max: number): number => {
   crypto.getRandomValues(randomBuffer);
 
   // Convert to float in range [0, 1) and scale to desired range
-  const randomFloat = randomBuffer[0] / (0xffffffff + 1);
+  const firstByte = randomBuffer[0];
+  if (firstByte === undefined) {
+    throw new Error("Failed to generate secure random number");
+  }
+  const randomFloat = firstByte / (0xffffffff + 1);
   return Math.floor(randomFloat * range) + min;
 };
 

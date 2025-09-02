@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 export type RangeInputProps = {
   readonly label: string;
   readonly value: number;
-  readonly error?: string;
+  readonly error: string | undefined;
   readonly placeholder?: string;
   readonly onChange: (value: string) => void;
 };

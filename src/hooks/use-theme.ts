@@ -1,49 +1,82 @@
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
-export function useTheme() {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check if dark mode is already applied on initial load
-    if (typeof document !== "undefined") {
-      return document.documentElement.classList.contains("dark")
-        ? "dark"
-        : "light";
-    }
-    return "light";
-  });
+function createThemeStore() {
+  let theme: Theme = "light";
+  const listeners = new Set<() => void>();
 
-  useEffect(() => {
-    // Function to update theme based on system preference
-    const updateTheme = (isDark: boolean) => {
-      const newTheme = isDark ? "dark" : "light";
-      setTheme(newTheme);
-
-      if (newTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    };
-
-    // Check system preference
+  // Initialize from system preference
+  if (typeof window !== "undefined") {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    theme = mediaQuery.matches ? "dark" : "light";
 
-    // Set initial theme based on system preference
-    updateTheme(mediaQuery.matches);
+    // Apply initial theme
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
 
-    // Listen for changes in system preference
-    const handleChange = (e: MediaQueryListEvent) => {
-      updateTheme(e.matches);
-    };
+    // Listen for system changes
+    mediaQuery.addEventListener("change", (e) => {
+      const newTheme = e.matches ? "dark" : "light";
+      if (newTheme !== theme) {
+        theme = newTheme;
 
-    mediaQuery.addEventListener("change", handleChange);
+        // Update DOM
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
 
-    // Cleanup listener
-    return () => {
-      mediaQuery.removeEventListener("change", handleChange);
-    };
-  }, []);
+        // Notify listeners
+        for (const listener of listeners) {
+          listener();
+        }
+      }
+    });
+  }
 
-  return theme;
+  return {
+    getSnapshot: () => theme,
+    subscribe: (listener: () => void) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+    setTheme: (newTheme: Theme) => {
+      if (newTheme !== theme) {
+        theme = newTheme;
+
+        if (typeof document !== "undefined") {
+          if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+          } else {
+            document.documentElement.classList.remove("dark");
+          }
+        }
+
+        for (const listener of listeners) {
+          listener();
+        }
+      }
+    },
+  };
+}
+
+const themeStore = createThemeStore();
+
+export function useTheme() {
+  const theme = useSyncExternalStore(
+    themeStore.subscribe,
+    themeStore.getSnapshot,
+    () => "light",
+  );
+
+  const toggleTheme = useCallback(() => {
+    themeStore.setTheme(theme === "light" ? "dark" : "light");
+  }, [theme]);
+
+  return { theme, toggleTheme };
 }
