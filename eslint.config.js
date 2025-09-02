@@ -11,12 +11,13 @@ export default tseslint.config([
     files: ["**/*.{ts,tsx}"],
     extends: [
       js.configs.recommended,
-      tseslint.configs.recommended,
+      tseslint.configs.strict,
       reactHooks.configs["recommended-latest"],
       reactRefresh.configs.vite,
+      reactRefresh.configs.recommended,
     ],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: "latest",
       globals: globals.browser,
     },
   },

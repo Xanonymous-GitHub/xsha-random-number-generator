@@ -32,7 +32,7 @@ export default defineConfig({
       },
     },
     sourcemap: false,
-    reportCompressedSize: false,
+    reportCompressedSize: true,
   },
   esbuild: {
     legalComments: "none",
