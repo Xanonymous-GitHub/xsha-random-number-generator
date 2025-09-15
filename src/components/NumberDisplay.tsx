@@ -35,7 +35,7 @@ const ResultDisplay = memo<{ number: number; range: RandomNumberRange }>(
         {number.toLocaleString()}
       </div>
       <p className="text-slate-600 dark:text-slate-400 text-sm">
-        Range: {range.min.toLocaleString()} → {range.max.toLocaleString()}
+        Range: {range.min.toLocaleString()} ~ {range.max.toLocaleString()}
       </p>
     </div>
   ),
