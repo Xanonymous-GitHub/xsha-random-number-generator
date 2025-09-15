@@ -24,7 +24,7 @@ A modern, accessible random number generator built with React 19+, TypeScript, a
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd xsha-random
+cd xsha-random-number-generator
 
 # Install dependencies
 bun install
