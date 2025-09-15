@@ -157,3 +157,5 @@ export const useRandomNumberGenerator = (
 
   return [state, actions];
 };
+
+// in-source testing validateRange() generateSecureRandom()
