@@ -158,4 +158,24 @@ export const useRandomNumberGenerator = (
   return [state, actions];
 };
 
-// in-source testing validateRange() generateSecureRandom()
+// in-source testing
+
+if (import.meta.vitest) {
+  const { it, expect } = import.meta.vitest;
+  it("validate the validateRange is good good", () => {
+    expect(validateRange(66, 44)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+    expect(validateRange(55, 55)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+
+    // expect(validateRange()).toStrictEqual()
+    // expect(validateRange()).toStrictEqual()
+    // expect(validateRange()).toStrictEqual()
+    // expect(validateRange()).toStrictEqual()
+    // expect(validateRange()).toStrictEqual()
+  });
+}
