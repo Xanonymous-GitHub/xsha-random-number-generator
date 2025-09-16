@@ -29,7 +29,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+
+    "types": ["vitest/importMeta"]
   },
   "include": ["src"]
 }
