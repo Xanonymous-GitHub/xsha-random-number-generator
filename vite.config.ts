@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import path from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
@@ -38,5 +39,8 @@ export default defineConfig({
     legalComments: "none",
     target: "esnext",
     drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
+  },
+  test: {
+    includeSource: ["src/**/*.{js,ts}"],
   },
 });
