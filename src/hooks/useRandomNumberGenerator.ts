@@ -162,7 +162,8 @@ export const useRandomNumberGenerator = (
 
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest;
-  it("validate the validateRange is good good", () => {
+
+  it("validate the validateRange (min >= max) is good good", () => {
     expect(validateRange(66, 44)).toStrictEqual({
       min: "Min must be less than max",
       max: "Max must be greater than min",
@@ -171,11 +172,65 @@ if (import.meta.vitest) {
       min: "Min must be less than max",
       max: "Max must be greater than min",
     });
+  });
 
-    // expect(validateRange()).toStrictEqual()
-    // expect(validateRange()).toStrictEqual()
-    // expect(validateRange()).toStrictEqual()
-    // expect(validateRange()).toStrictEqual()
-    // expect(validateRange()).toStrictEqual()
+  it("validate the minimum limit (min < RANGE_LIMITS.MIN) is good good", () => {
+    expect(validateRange(-1_000_001, -1_000_000)).toStrictEqual({
+      min: `Value too small (min: -1,000,000)`,
+      max: undefined,
+    });
+    expect(validateRange(-1_000_001, -1_000_001)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+    expect(validateRange(-1_000_001, -1_000_002)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+  });
+
+  it("validate the minimum limit (max < RANGE_LIMITS.MIN) is good good", () => {
+    expect(validateRange(-1_000_002, -1_000_001)).toStrictEqual({
+      min: `Value too small (min: -1,000,000)`,
+      max: undefined,
+    });
+    expect(validateRange(-1_000_001, -1_000_001)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+    expect(validateRange(-1_000_000, -1_000_001)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+  });
+
+  it("validate the maximum limit (min > RANGE_LIMITS.MAX) is good good", () => {
+    expect(validateRange(1_000_001, 1_000_000)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+    expect(validateRange(1_000_001, 1_000_001)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+    expect(validateRange(1_000_001, 1_000_002)).toStrictEqual({
+      min: `Value too large (max: 1,000,000)`,
+      max: undefined,
+    });
+  });
+
+  it("validate the maximum limit (max > RANGE_LIMITS.MAX) is good good", () => {
+    expect(validateRange(1_000_002, 1_000_001)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+    expect(validateRange(1_000_001, 1_000_001)).toStrictEqual({
+      min: "Min must be less than max",
+      max: "Max must be greater than min",
+    });
+    expect(validateRange(1_000_000, 1_000_001)).toStrictEqual({
+      min: undefined,
+      max: `Value too large (max: 1,000,000)`,
+    });
   });
 }
