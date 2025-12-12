@@ -1,11 +1,11 @@
 import { memo, useDeferredValue, useRef } from "react";
-import { AppFooter } from "@/components/AppFooter";
-import { AppHeader } from "@/components/AppHeader";
-import { GenerateButton } from "@/components/GenerateButton";
-import { NumberDisplay } from "@/components/NumberDisplay";
-import { RangeInput } from "@/components/RangeInput";
-import { Card } from "@/components/ui/card";
-import { useRandomNumberGenerator } from "@/hooks/useRandomNumberGenerator";
+import { AppFooter } from "@/components/AppFooter.tsx";
+import { AppHeader } from "@/components/AppHeader.tsx";
+import { GenerateButton } from "@/components/GenerateButton.tsx";
+import { NumberDisplay } from "@/components/NumberDisplay.tsx";
+import { RangeInput } from "@/components/RangeInput.tsx";
+import { Card } from "@/components/ui/card.tsx";
+import { useRandomNumberGenerator } from "@/hooks/useRandomNumberGenerator.ts";
 
 export const RandomNumberGenerator = memo(() => {
   const [state, actions] = useRandomNumberGenerator(1, 100);

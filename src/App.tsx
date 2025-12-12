@@ -1,5 +1,5 @@
-import { RandomNumberGenerator } from "@/components/RandomNumberGenerator";
-import { useTheme } from "@/hooks/use-theme";
+import { RandomNumberGenerator } from "@/components/RandomNumberGenerator.tsx";
+import { useTheme } from "@/hooks/use-theme.ts";
 
 function App() {
   // Initialize auto dark/light mode detection with modern useSyncExternalStore

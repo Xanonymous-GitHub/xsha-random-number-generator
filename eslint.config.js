@@ -9,16 +9,21 @@ export default tseslint.config([
   globalIgnores(["dist"]),
   {
     files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.strict,
-      reactHooks.configs["recommended-latest"],
-      reactRefresh.configs.vite,
-      reactRefresh.configs.recommended,
-    ],
+    extends: [js.configs.recommended, ...tseslint.configs.strict],
     languageOptions: {
       ecmaVersion: "latest",
       globals: globals.browser,
+    },
+    plugins: {
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
     },
   },
 ]);

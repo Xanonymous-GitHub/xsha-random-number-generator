@@ -1,6 +1,6 @@
 import { Shuffle } from "lucide-react";
 import { memo } from "react";
-import type { RandomNumberRange } from "@/hooks/useRandomNumberGenerator";
+import type { RandomNumberRange } from "@/hooks/useRandomNumberGenerator.ts";
 
 export type NumberDisplayProps = {
   readonly randomNumber: number | null;

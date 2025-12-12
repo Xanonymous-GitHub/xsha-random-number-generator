@@ -1,6 +1,6 @@
 import { Shuffle } from "lucide-react";
 import { memo } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button.tsx";
 
 export type GenerateButtonProps = {
   readonly isGenerating: boolean;

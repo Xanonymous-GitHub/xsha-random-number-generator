@@ -1,6 +1,6 @@
 import { memo, useId } from "react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input.tsx";
+import { Label } from "@/components/ui/label.tsx";
 
 export type RangeInputProps = {
   readonly label: string;
