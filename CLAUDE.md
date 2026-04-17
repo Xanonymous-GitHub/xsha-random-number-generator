@@ -7,10 +7,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 XSha Random Manager - A React-based random number generator application built with TypeScript, Vite, and modern tooling. Currently in early development with minimal implementation.
 
 **Tech Stack:**
-- React 19 with TypeScript 5.9
-- Vite 7 for build tooling
+- React 19 with TypeScript 6.0
+- Vite 8 for build tooling
 - TailwindCSS 4 for styling
-- Biome 2 + ESLint 9 for code quality
+- Biome 2 + ESLint 10 for code quality
 - Radix UI components with shadcn/ui
 - Lucide React icons
 - Zod 4 for validation
@@ -39,6 +39,7 @@ XSha Random Manager - A React-based random number generator application built wi
 - React JSX transform (react-jsx)
 - No unused locals/parameters allowed
 - Verbatim module syntax enforced
+- Path aliases configured with `compilerOptions.paths` without `baseUrl` for TypeScript 6 compatibility
 
 ### Code Style
 - **2-space indentation** (Biome enforced)
@@ -98,7 +99,7 @@ src/
 - **Best practices** - Ensure recommendations are current
 
 ### Modern Development Requirements
-- **Follow latest best practices** for React 19, TypeScript 5.x, Vite 7.x
+- **Follow latest best practices** for React 19, TypeScript 6.x, Vite 8.x
 - **Use current patterns** - Verify with Context7 before implementation
 - **Stay updated** - Don't rely on training data for current practices
 - **Validate approaches** - Cross-reference with official documentation
@@ -139,6 +140,7 @@ src/
 - shadcn/ui component system with Radix UI primitives
 - Lucide React icons for consistent iconography
 - Path aliases configured (`@/*` → `./src/*`)
+- Vite 8 build configuration aligned with Rolldown/Oxc options
 - HTML minification in production builds
 - Single page application (no routing yet)
 - No state management beyond React built-ins  

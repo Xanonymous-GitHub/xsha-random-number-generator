@@ -5,38 +5,44 @@ import { defineConfig } from "vite";
 import { createHtmlPlugin } from "vite-plugin-html";
 
 export default defineConfig({
-  plugins: [
-    react({
-      babel: {
-        plugins: [] as const,
-      },
-    }),
-    tailwindcss(),
-    createHtmlPlugin({ minify: true }),
-  ],
+  plugins: [react(), tailwindcss(), createHtmlPlugin({ minify: true })],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
   build: {
-    minify: "esbuild",
     target: "esnext",
-    rollupOptions: {
+    rolldownOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom"],
-          ui: ["@radix-ui/react-label", "@radix-ui/react-slot"],
-          utils: ["clsx", "tailwind-merge", "class-variance-authority"],
+        codeSplitting: {
+          groups: [
+            {
+              name: "react",
+              test: /node_modules\/(react|react-dom)\//,
+            },
+            {
+              name: "ui",
+              test: /node_modules\/@radix-ui\//,
+            },
+            {
+              name: "utils",
+              test: /node_modules\/(clsx|tailwind-merge|class-variance-authority)\//,
+            },
+          ],
+        },
+        comments: {
+          legal: false,
+        },
+        minify: {
+          compress: {
+            dropConsole: true,
+            dropDebugger: true,
+          },
         },
       },
     },
     sourcemap: false,
     reportCompressedSize: true,
-  },
-  esbuild: {
-    legalComments: "none",
-    target: "esnext",
-    drop: process.env.NODE_ENV === "production" ? ["console", "debugger"] : [],
   },
 });
