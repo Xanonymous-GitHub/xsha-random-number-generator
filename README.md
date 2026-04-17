@@ -2,7 +2,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ad8e0e19-c15c-4169-909d-261b91fcbfd6/deploy-status)](https://app.netlify.com/projects/xsharandomnumgenerator/deploys)
 [![CI](https://github.com/Xanonymous-GitHub/xsha-random-number-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/Xanonymous-GitHub/xsha-random-number-generator/actions/workflows/ci.yml)
 
-A modern, accessible random number generator built with React 19+, TypeScript, and TailwindCSS. Features cryptographically secure random generation with a polished, responsive interface.
+A modern, accessible random number generator built with React 19+, TypeScript, and TailwindCSS. Features cryptographically secure random generation with a polished, responsive interface
 
 ## ✨ Features
 
