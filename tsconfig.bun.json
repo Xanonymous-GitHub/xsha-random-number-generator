@@ -4,7 +4,6 @@
     "target": "ESNext",
     "lib": ["ESNext"],
     "module": "ESNext",
-    "skipLibCheck": true,
 
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
