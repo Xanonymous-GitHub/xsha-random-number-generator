@@ -9,7 +9,7 @@ XSha Random Manager - A React-based random number generator application built wi
 **Tech Stack:**
 - React 19 with TypeScript 6.0
 - Vite 8 for build tooling
-- TailwindCSS 4 for styling
+- TailwindCSS 4.3 for styling
 - Biome 2 + ESLint 10 for code quality
 - Radix UI components with shadcn/ui
 - Lucide React icons
@@ -19,7 +19,7 @@ XSha Random Manager - A React-based random number generator application built wi
 
 ### Development
 - `bun run dev` - Start development server with hot reload
-- `bun run build` - Build for production (TypeScript + Vite)
+- `bun run build` - Build for production (`tsc -b` + `bun --bun vite build`)
 - `bun run preview` - Preview production build
 
 ### Code Quality  
@@ -40,6 +40,7 @@ XSha Random Manager - A React-based random number generator application built wi
 - No unused locals/parameters allowed
 - Verbatim module syntax enforced
 - Path aliases configured with `compilerOptions.paths` without `baseUrl` for TypeScript 6 compatibility
+- Library type checking enabled (no `skipLibCheck`)
 
 ### Code Style
 - **2-space indentation** (Biome enforced)
@@ -50,15 +51,23 @@ XSha Random Manager - A React-based random number generator application built wi
 ### Project Structure
 ```
 src/
-├── App.tsx              # Main React component
-├── main.tsx             # App entry point
-├── index.css            # Global styles (TailwindCSS imports)
+├── App.tsx                       # Main React component
+├── main.tsx                      # App entry point
+├── index.css                     # Global styles (TailwindCSS imports)
+├── hooks/
+│   ├── use-theme.ts              # Theme state hook
+│   └── useRandomNumberGenerator.ts # RNG state hook
 ├── lib/
-│   └── utils.ts         # Utility functions (clsx, cn helper)
+│   └── utils.ts                  # Utility functions (clsx, cn helper)
 ├── components/
-│   └── ui/
-│       └── button.tsx   # shadcn/ui Button component
-└── vite-env.d.ts        # Vite types
+│   ├── AppFooter.tsx
+│   ├── AppHeader.tsx
+│   ├── GenerateButton.tsx
+│   ├── NumberDisplay.tsx
+│   ├── RandomNumberGenerator.tsx
+│   ├── RangeInput.tsx
+│   └── ui/                       # shadcn/ui primitives
+└── vite-env.d.ts                 # Vite types
 ```
 
 ## MCP Tools & Modern Development Practices
@@ -139,8 +148,8 @@ src/
 - TailwindCSS 4 for utility-first styling with integrated Vite plugin
 - shadcn/ui component system with Radix UI primitives
 - Lucide React icons for consistent iconography
-- Path aliases configured (`@/*` → `./src/*`)
-- Vite 8 build configuration aligned with Rolldown/Oxc options
+- Path aliases configured (`@/*` → `./src/*`) without deprecated `baseUrl`
+- Vite build uses Rolldown/Oxc config and runs under Bun runtime to avoid Node-only Tailwind loader deprecation warnings
 - HTML minification in production builds
 - Single page application (no routing yet)
 - No state management beyond React built-ins  
